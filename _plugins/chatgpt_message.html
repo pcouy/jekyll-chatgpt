@@ -1,0 +1,32 @@
+{% assign outer_message=messages | last %}
+<div class="chatgpt-message" id="{{outer_message.id}}">
+    {% if outer_message.message %}
+        <div class="chatgpt-messagebody chatgpt-role-{{ outer_message.message.author.role }}">
+            {% if mdfy %}
+                {{ outer_message.message.content.parts[0] | markdownify }}
+            {% else %}
+                <pre>{{ outer_message.message.content.parts[0] }}</pre>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="chatgpt-messagechildren">
+    {% for child_id in outer_message.children %}
+        <!-- D {% increment depth %} -->
+        {% assign inner_message=conversation.mapping[child_id] %}
+        {% assign messages = messages | push: inner_message %}
+        <div class="chatgpt-messagechild">
+            <input type="radio"
+                name="chatgpt-{{ outer_message.id }}"
+                id="chatgpt-control-{{ inner_message.id }}"
+                class="chatgpt-control"
+                {% if forloop.first %}checked{% endif %}
+            >
+            <label for="chatgpt-control-{{ inner_message.id }}">{{ forloop.index }}</label>
+            {% include chatgpt_message.html %}
+        </div>
+        {% assign messages = messages | slice: 0, depth %}
+        {% assign outer_message=messages.last %}
+        <!-- D {% decrement depth %} -->
+    {% endfor %}
+    </div>
+</div>

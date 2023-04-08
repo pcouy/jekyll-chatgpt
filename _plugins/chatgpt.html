@@ -1,0 +1,6 @@
+<section class="chatgpt-conversation">
+    <h1>{{ conversation.title }}</h1>
+    {% assign message=conversation.mapping | find_exp:"item", "item.parent == nil" %}
+    {% assign messages=conversation.mapping | where_exp:"item", "item.parent == nil"  %}
+    {% include chatgpt_message.html %}
+</section>
