@@ -1,0 +1,23 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <link rel="stylesheet" type="text/css" href="/solarized-light.css">
+    </head>
+    <body>
+        <div class="site-container">
+            <main>
+                <h1>Example ChatGPT conversation</h1>
+                {{ site.data.chatgpt["date"] | chatgpt }}
+                {{ site.data.chatgpt["python_triangle"] | chatgpt }}
+                {{ site.data.chatgpt["delimiter_tokens"] | chatgpt: false }}
+            </main>
+        </div>
+    </body>
+</html>
