@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    jekyll-chatgpt (1.0.0)
+      jekyll (~> 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,7 +70,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  jekyll (~> 4.3.2)
+  jekyll-chatgpt!
 
 BUNDLED WITH
    2.4.7
