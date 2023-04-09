@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>jekyll-chatgpt demo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="main.css">
         <link rel="stylesheet" type="text/css" href="solarized-light.css">
@@ -14,9 +14,21 @@
         <div class="site-container">
             <main>
                 <h1>Example ChatGPT conversation</h1>
-                {{ site.data.chatgpt["date"] | chatgpt }}
-                {{ site.data.chatgpt["python_triangle"] | chatgpt }}
-                {{ site.data.chatgpt["delimiter_tokens"] | chatgpt: false }}
+                <article>
+                    <h2>Branching conversation about the date</h2>
+                    <p>The conversation below demonstrates the ablility to navigate branching conversations (when you edit your own request, or make ChatGPT re-generate a reply)</p>
+                    {{ site.data.chatgpt["date"] | chatgpt }}
+                </article>
+                <article>
+                    <h2>Markdown formatting including code blocks</h2>
+                    <p>This conversation features markdown formatting such as code blocks and the use of backticks (`) to inline variablme or function names. By default, the `chatgpt` filter will render markdown in both user input and assistant output. This uses the jekyll `markdownify` filter. Note that for the last message (when viewing only the first branch of this conversation) seems to cause errors in markdown parsing.</p>
+                    {{ site.data.chatgpt["python_triangle"] | chatgpt }}
+                </article>
+                <article>
+                    <h2>Disabling markdown rendering</h2>
+                    <p>If the content of the conversation contains parts that are wrongly interpreted as markdown by the markdownify filter, you can always disable markdown rendering by passing the `false` argument to the `chatgpt` filter. The text will be rendered as inline pre-formatted text. In the example below, the pipe (|) characters are interpreted as a table when rendering markdown.</p>
+                    {{ site.data.chatgpt["delimiter_tokens"] | chatgpt: false }}
+                </article>
             </main>
         </div>
     </body>
