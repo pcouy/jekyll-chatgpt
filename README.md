@@ -12,6 +12,12 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
     $ gem install jekyll-chatgpt
 
+After installing, don't forget to update your `_config.yml` to include the plugin :
+
+```yaml
+plugins:   [other-plugins, jekyll-picture-tag-ng]
+```
+
 Optionally, include a stylesheet for code syntax highlighting in ChatGPT output. If you already have a code highlighting theme set up for your site, it should automatically be used.
 
 ## Usage
