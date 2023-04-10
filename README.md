@@ -1,24 +1,29 @@
 # JekyllChatgpt
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll_chatgpt`. To experiment with that code, run `bin/console` for an interactive prompt.
+This plugin inctroduces a `chatgpt` Liquid filter that formats ChatGPT conversations. It only uses CSS to navigate in branching conversations. A [live demo of deploying the demo branch of this repository to Github pages is available](https://pierre-couy.dev/jekyll-chatgpt)
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add jekyll-chatgpt
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install jekyll-chatgpt
+
+Optionally, include a stylesheet for code syntax highlighting in ChatGPT output. If you already have a code highlighting theme set up for your site, it should automatically be used.
 
 ## Usage
 
-TODO: Write usage instructions here
+### Including a conversation
+
+1. Download a conversation from [your ChatGPT history](https://chat.openai.com/). When on the ChatGPT web page, open your browser dev-tools (usually using F12) and go to the "Network" tab. Now, pick a conversation in the web-app. The URL in your browser should now look like `chat.openapi.com/chat/{some-random-looking-id}`. In the network tab of the developer tools, find the request to `{some-random-looking-id}` and right-click on it and pick "Copy > Copy response". You can now paste what you just copied into a JSON file inside your `_data` folder (for instance, `_data/chatgpt/test_conversation.json`).
+2. You can now use `{{ site.data.chatgpt['test_conversation'] | chatgpt }}` anywhere in your liquid-rendered content to include the conversation in your website. This will render markdown in messages by default. You can disable markdown rendering by passing the `false` argument to the filter : `{{ site.data.chatgpt['test_conversation'] | chatgpt: false }}`.
+
+### Customizing the colors
+
+The necessary styles will automatically be inlined when using the filter. You can override the default colors by providing the following variables in your `_sass/_colors.sass` file : `$color1`, `$color1-alt`, `$color2`, `$color2-alt`, `$cyan`
 
 ## Development
 
