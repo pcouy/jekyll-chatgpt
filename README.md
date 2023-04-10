@@ -1,6 +1,6 @@
 # JekyllChatgpt
 
-This plugin inctroduces a `chatgpt` Liquid filter that formats ChatGPT conversations. It only uses CSS to navigate in branching conversations. A [live demo of deploying the demo branch of this repository to Github pages is available](https://pierre-couy.dev/jekyll-chatgpt)
+This plugin inctroduces a `chatgpt` Liquid filter that formats ChatGPT conversations. It only uses CSS to navigate in branching conversations. A [live demo of deploying the demo branch of this repository to Github pages is available](https://pierre-couy.dev/jekyll-chatgpt) ([code](https://github.com/pcouy/jekyll-chatgpt/tree/demo))
 
 ## Installation
 
@@ -24,6 +24,10 @@ Optionally, include a stylesheet for code syntax highlighting in ChatGPT output.
 ### Customizing the colors
 
 The necessary styles will automatically be inlined when using the filter. You can override the default colors by providing the following variables in your `_sass/_colors.sass` file : `$color1`, `$color1-alt`, `$color2`, `$color2-alt`, `$cyan`
+
+### Live demo
+
+You can browse the [code for the live demo](https://github.com/pcouy/jekyll-chatgpt/tree/demo) which is intended to be a minimal example of using the plugin.
 
 ## Development
 
