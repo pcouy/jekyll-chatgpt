@@ -1,6 +1,6 @@
 {% unless chatgpt_style_included %}
-<link rel="stylesheet" type="text/css" href="{{ 'chatgpt.css' | relative_url }}">
-{% assign chatgpt_style_included = true %}
+    <link rel="stylesheet" type="text/css" href="{{ 'chatgpt.css' | relative_url }}">
+    {% assign chatgpt_style_included = true %}
 {% endunless %}
 <section class="chatgpt-conversation">
     <h1>{{ conversation.title }}</h1>

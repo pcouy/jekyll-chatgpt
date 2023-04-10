@@ -23,6 +23,25 @@ module JekyllChatgpt
       res
     end
   end
+
+  # Renders chatgpt.sass to /chatgpt.css
+  class StyleGenerator < Jekyll::Generator
+    safe true
+    priority :lowest
+
+    def generate(site)
+      chatgpt_style = Jekyll::PageWithoutAFile.new(site, __dir__, "", "chatgpt.sass")
+      chatgpt_style.tap do |file|
+        colors_exists = site.pages.filter do |page|
+          page.name =~ /colors\.sass$/i
+        end.size
+        file.content = ""
+        file.content += "@import \"colors\"\n" if colors_exists
+        file.content += File.read(File.expand_path("chatgpt.sass", __dir__))
+      end
+      site.pages << chatgpt_style
+    end
+  end
 end
 
 Liquid::Template.register_filter(JekyllChatgpt::Filter)
