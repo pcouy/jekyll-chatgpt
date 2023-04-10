@@ -23,3 +23,6 @@ Naming/MethodParameterName:
 
 Naming/FileName:
   Enabled: false
+
+Stylez/OptionalBooleanParameter:
+  Enabled: false
