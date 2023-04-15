@@ -18,6 +18,11 @@ $cyan: #2aa198 !default
     left: 0
     width: 100%
     top: 1.5em
+    &:target
+      border: 1px solid $color1
+      border-radius: 5px
+      width: 98%
+      margin: 0.75%
   .chatgpt-control:checked ~ .chatgpt-message
     display: block
     &>.chatgpt-messagebody

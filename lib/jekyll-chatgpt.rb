@@ -2,6 +2,7 @@
 
 require_relative "jekyll-chatgpt/version"
 require "liquid"
+require "jekyll"
 
 module JekyllChatgpt
   class Error < StandardError; end
@@ -24,7 +25,34 @@ module JekyllChatgpt
     end
   end
 
-  # Renders chatgpt.sass to /chatgpt.css
+  # Renders nested `label` tags to display a message deep inside a branching
+  # conversation
+  class MessageLabel < Liquid::For
+    def render(context)
+      message_id_short = @variable_name
+      conversation = context.evaluate(@collection_name)
+      messages = conversation["mapping"]
+      message_id = messages.keys.filter do |id_candidate|
+        id_candidate.start_with? message_id_short
+      end.first
+      message_path = [message_id]
+      message = messages[message_id]
+      while message
+        message = messages[message["parent"]]
+        message_path.append(message["id"]) if message
+      end
+      res = "<a class=\"chatgpt-target\" href=\"\##{message_id}\">"
+      res += message_path.map do |path_id|
+        "<label class=\"chatgpt-deep-label\" for=\"chatgpt-control-#{path_id}\">"
+      end.join("")
+      res += @for_block.render(context)
+      res += message_path.map { |_| "</label>" }.join("")
+      res += "</a>"
+      res
+    end
+  end
+
+  # Renders needed styles and JS
   class StyleGenerator < Jekyll::Generator
     safe true
     priority :lowest
@@ -40,8 +68,12 @@ module JekyllChatgpt
         file.content += File.read(File.expand_path("chatgpt.sass", __dir__))
       end
       site.pages << chatgpt_style
+
+      message_label_js = Jekyll::StaticFile.new(site, __dir__, "", "chatgpt_message_label.js")
+      site.static_files << message_label_js
     end
   end
 end
 
 Liquid::Template.register_filter(JekyllChatgpt::Filter)
+Liquid::Template.register_tag("chatgpt_message_label", JekyllChatgpt::MessageLabel)
