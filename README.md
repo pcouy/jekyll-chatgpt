@@ -37,13 +37,17 @@ You can browse the [code for the live demo](https://github.com/pcouy/jekyll-chat
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After cloning the repo, you can run the following commands in a local jekyll website's folder to start hacking on the code of `jekyll-chatgpt` (you'll need to replace the path in the second command :
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ bundle remove jekyll-chatgpt # if you previously used jekyll-chatgpt from rubygems
+    $ bundle add --path /absolute/or/relative/path/to/your/local/jekyll-chatgpt/repo jekyll-chatgpt
+    $ bundle exec jekyll serve # Re-run this when you want to test changes to your local jekyll-chatgpt
+
+To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jekyll_chatgpt.
+Bug reports and pull requests are welcome on GitHub at https://github.com/pcouy/jekyll-chatgpt.
 
 ## License
 
