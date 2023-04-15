@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="main.css">
         <link rel="stylesheet" type="text/css" href="solarized-light.css">
+        <script defer src="/chatgpt_message_label.js"></script>
     </head>
     <body>
         <div class="site-container">
@@ -19,6 +20,7 @@
                 <article>
                     <h2>Branching conversation about the date</h2>
                     <p>The conversation below demonstrates the ablility to navigate branching conversations (when you edit your own request, or make ChatGPT re-generate a reply)</p>
+                    <p>You can create links to specific messages inside the conversation and focus all the messages leading to the target message : here is a {% chatgpt_message_label 55bb5 in site.data.chatgpt["date"] %}link to a message{% endchatgpt_message_label %} and here is another {% chatgpt_message_label e6562 in site.data.chatgpt["date"] %}link to another message{% endchatgpt_message_label %}<br>
                     {{ site.data.chatgpt["date"] | chatgpt }}
                 </article>
                 <article>
