@@ -1,0 +1,10 @@
+<div class="chatgpt-messagechild">
+    <input type="radio"
+        name="chatgpt-{{ include.outer_message.id }}"
+        id="chatgpt-control-{{ include.inner_message.id }}"
+        class="chatgpt-control"
+        {% if forloop.first %}checked{% endif %}
+    >
+    <label for="chatgpt-control-{{ include.inner_message.id }}">{{ forloop.index }}</label>
+    {% include chatgpt_message.html message=include.inner_message %}
+</div>

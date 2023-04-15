@@ -11,21 +11,13 @@
     <div class="chatgpt-messagechildren">
     {% for child_id in include.message.children %}
         {% assign inner_message=conversation.mapping[child_id] %}
-        <div class="chatgpt-messagechild">
-            <input type="radio"
-                name="chatgpt-{{ include.message.id }}"
-                id="chatgpt-control-{{ inner_message.id }}"
-                class="chatgpt-control"
-                {% if forloop.first %}checked{% endif %}
-            >
-            <label for="chatgpt-control-{{ inner_message.id }}">{{ forloop.index }}</label>
-            {% include chatgpt_message.html message=inner_message %}
-            {% comment %}
-              # `inner_message` is no longer valid after the include, because it will
-              # be overrided during the recursion. This is not a problem as long as
-              # we're only closing tags after the include
-            {% endcomment %}
-        </div>
+        {% include chatgpt_innermessage.html 
+            outer_message=include.message
+            inner_message=inner_message
+        %}
+        {% comment %}
+          # Do not use `inner_message` in this partial after this point, as it
+          # will be overriden by the recursive include of `chatgpt_message.html`
     {% endfor %}
     </div>
 </div>
