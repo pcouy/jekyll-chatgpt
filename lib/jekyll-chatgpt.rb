@@ -73,6 +73,10 @@ module JekyllChatgpt
       sass_exists(site, "_colors.sass")
     end
 
+    def style_exists?(site)
+      sass_exists(site, "_chatgpt_custom.sass")
+    end
+
     def add_js(site)
       message_label_js = Jekyll::StaticFile.new(site, __dir__, "", "chatgpt_message_label.js")
       site.static_files << message_label_js
@@ -83,6 +87,8 @@ module JekyllChatgpt
       chatgpt_style.tap do |file|
         file.content = ""
         file.content += "@import \"colors\"\n\n" if colors_exists?(site)
+        file.content += "@layer chatgpt-default, chatgpt-custom\n\n"
+        file.content += "@layer chatgpt-custom\n  @import \"chatgpt_custom\"\n\n" if style_exists?(site)
         file.content += File.read(File.expand_path("chatgpt.sass", __dir__))
       end
       site.pages << chatgpt_style

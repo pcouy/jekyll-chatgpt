@@ -32,6 +32,10 @@ Optionally, include a stylesheet for code syntax highlighting in ChatGPT output.
 
 The necessary styles will automatically be inlined when using the filter. You can override the default colors by providing the following variables in your `_sass/_colors.sass` file : `$color1`, `$color1-alt`, `$color2`, `$color2-alt`, `$cyan`
 
+### Customizing the SASS/CSS
+
+You can put your custom SASS inside `_sass/_chatgpt_custom.sass`. If the file exists, it will be imported and the properties set in your custom stylesheet will take precedence by using [CSS layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer). The demo uses this to add rounded borders to the controls.
+
 ### Live demo
 
 You can browse the [code for the live demo](https://github.com/pcouy/jekyll-chatgpt/tree/demo) which is intended to be a minimal example of using the plugin.
