@@ -3,6 +3,7 @@
 require_relative "jekyll-chatgpt/version"
 require "liquid"
 require "jekyll"
+require "jekyll/converters/scss"
 
 module JekyllChatgpt
   class Error < StandardError; end
@@ -55,22 +56,38 @@ module JekyllChatgpt
   # Renders needed styles and JS
   class StyleGenerator < Jekyll::Generator
     safe true
-    priority :lowest
+    priority :highest
+
+    def sass_converter(site)
+      @sass_converter ||= Jekyll::Converters::Sass.new(site.config)
+    end
+
+    def sass_exists(site, file)
+      sass_converter(site).sass_load_paths.each do |dir|
+        return true unless Dir.new(dir).children.index(file).nil?
+      end
+      false
+    end
+
+    def colors_exists?(site)
+      sass_exists(site, "_colors.sass")
+    end
+
+    def add_js(site)
+      message_label_js = Jekyll::StaticFile.new(site, __dir__, "", "chatgpt_message_label.js")
+      site.static_files << message_label_js
+    end
 
     def generate(site)
       chatgpt_style = Jekyll::PageWithoutAFile.new(site, __dir__, "", "chatgpt.sass")
       chatgpt_style.tap do |file|
-        colors_exists = site.pages.filter do |page|
-          page.name =~ /colors\.sass$/i
-        end.size
         file.content = ""
-        file.content += "@import \"colors\"\n" if colors_exists
+        file.content += "@import \"colors\"\n\n" if colors_exists?(site)
         file.content += File.read(File.expand_path("chatgpt.sass", __dir__))
       end
       site.pages << chatgpt_style
 
-      message_label_js = Jekyll::StaticFile.new(site, __dir__, "", "chatgpt_message_label.js")
-      site.static_files << message_label_js
+      add_js(site)
     end
   end
 end
