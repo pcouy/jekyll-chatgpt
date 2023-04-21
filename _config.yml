@@ -23,8 +23,8 @@ email: contact@pierre-couy.dev
 description: >- # this means to ignore newlines until "baseurl:"
   This page shows how you can use jekyll-chatgpt to include ChatGPT conversations
   in your Jekyll content
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/jekyll-chatgpt" # the subpath of your site, e.g. /blog
+url: "https://pierre-couy.dev" # the base hostname & protocol for your site, e.g. http://example.com
 plugins: [jekyll-chatgpt, jekyll-sitemap]
 
 
